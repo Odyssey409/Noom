@@ -1,6 +1,6 @@
 import http from "http";
-import WebSocket from "ws";
-import express, { json } from "express";
+import SocketIo from "socket.io";
+import express from "express";
 
 const app = express();
 
@@ -15,32 +15,39 @@ const PORT = 3000;
 const handleListening = () =>
   console.log(`✅ Server listening on port http://localhost:${PORT} 🚀`);
 
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const httpServer = http.createServer(app);
+const wsServer = SocketIo(httpServer);
 
-const sockets = [];
-
-wss.on("connection", (socket) => {
-  sockets.push(socket);
-  socket["nickname"] = "Anonymous";
-  console.log("Connected to Browser ✅");
-  socket.on("close", () => console.log("Disconnected from Browser ❌"));
-  socket.on("message", (msg) => {
-    const message = JSON.parse(msg);
-    switch (message.type) {
-      case "new_message":
-        sockets.forEach((aSokect) =>
-          aSokect.send(
-            `${socket.nickname}: ${message.payLoad.toString("utf-8")}`
-          )
-        );
-        break;
-
-      case "nickname":
-        socket["nickname"] = message.payLoad.toString("utf-8");
-        break;
-    }
+wsServer.on("connection", (socket) => {
+  socket.on("enter_room", (roomName, done) => {
+    console.log(roomName);
+    setTimeout(() => {
+      done("hello from backend");
+    }, 15000);
   });
 });
 
-server.listen(PORT, handleListening);
+// wss.on("connection", (socket) => {
+//   sockets.push(socket);
+//   socket["nickname"] = "Anonymous";
+//   console.log("Connected to Browser ✅");
+//   socket.on("close", () => console.log("Disconnected from Browser ❌"));
+//   socket.on("message", (msg) => {
+//     const message = JSON.parse(msg);
+//     switch (message.type) {
+//       case "new_message":
+//         sockets.forEach((aSokect) =>
+//           aSokect.send(
+//             `${socket.nickname}: ${message.payLoad.toString("utf-8")}`
+//           )
+//         );
+//         break;
+
+//       case "nickname":
+//         socket["nickname"] = message.payLoad.toString("utf-8");
+//         break;
+//     }
+//   });
+// });
+
+httpServer.listen(PORT, handleListening);
