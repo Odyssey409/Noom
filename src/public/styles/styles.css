@@ -1,1 +1,48 @@
-/*# sourceMappingURL=styles.css.map */
+body {
+  font-family: "Silkscreen", cursive;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(9, 96, 121) 42%, rgb(0, 212, 255) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#020024",endColorstr="#00d4ff",GradientType=1);
+}
+body main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body main #call {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body #welcome {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  margin-top: 50px;
+}
+body #welcome form {
+  display: flex;
+  width: 30%;
+  justify-content: space-between;
+}
+body #welcome input {
+  font-family: "Silkscreen", cursive;
+  height: 5vh;
+  width: 50%;
+  text-align: center;
+  font-size: large;
+}
+body #welcome button {
+  font-family: "Silkscreen", cursive;
+  width: 40%;
+  font-size: 15px;
+}
+
+h1 {
+  margin-top: 120px;
+  font-size: 100px;
+}/*# sourceMappingURL=styles.css.map */
